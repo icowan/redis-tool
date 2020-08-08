@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/.gitignore
+.idea/misc.xml
+.idea/modules.xml
+.idea/redis-migrate.iml
+.idea/vcs.xml
