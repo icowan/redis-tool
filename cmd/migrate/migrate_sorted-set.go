@@ -21,11 +21,11 @@ import (
 var (
 	migrateRedisSortedSetCmd = &cobra.Command{
 		Use:               `sorted-set <args> [flags]`,
-		Short:             "有序集合",
+		Short:             "有序集合迁移",
 		SilenceErrors:     false,
 		DisableAutoGenTag: false,
 		Example: `
-redis-tool migrate sorted-set {key} --source-redis-cluster true --source-hosts 127.0.0.1:6379,127.0.0.1:7379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
+redis-tool migrate sorted-set {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// 关闭资源连接

@@ -2,5 +2,5 @@
 .idea/.gitignore
 .idea/misc.xml
 .idea/modules.xml
-.idea/redis-migrate.iml
+.idea/redis-tool.iml
 .idea/vcs.xml

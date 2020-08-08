@@ -7,7 +7,7 @@
 
 package main
 
-import "github.com/icowan/redis-migrate/cmd/migrate"
+import "github.com/icowan/redis-tool/cmd/migrate"
 
 func main() {
 	migrate.Run()

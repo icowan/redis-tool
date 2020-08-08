@@ -21,11 +21,11 @@ import (
 var (
 	migrateRedisHashCmd = &cobra.Command{
 		Use:               `hash <args> [flags]`,
-		Short:             "哈希列表",
+		Short:             "哈希列表迁移",
 		SilenceErrors:     false,
 		DisableAutoGenTag: false,
 		Example: `
-redis-tool migrate hash {key} --source-redis-cluster true --source-hosts 127.0.0.1:6379,127.0.0.1:7379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
+redis-tool migrate hash {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// 关闭资源连接

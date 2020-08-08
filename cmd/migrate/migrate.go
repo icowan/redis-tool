@@ -14,7 +14,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/icowan/redis-migrate/redis"
+	"github.com/icowan/redis-tool/redis"
 )
 
 var (
@@ -28,26 +28,25 @@ var (
 	targetRedis redis.RedisInterface
 
 	rootCmd = &cobra.Command{
-		Use:               "redis-migrate",
+		Use:               "redis-tool",
 		Short:             "",
 		SilenceErrors:     true,
 		DisableAutoGenTag: true,
 		Long: `# redis 迁移工具
 可用的配置类型：
 [migrate]
-有关本系统的相关概述，请参阅 http://gitlab.creditease.corp/yqz/invite-admin
+有关本系统的相关概述，请参阅 https://github.com/icowan/redis-tool
 `,
 	}
 
 	migrateRedisCmd = &cobra.Command{
 		Use:               `migrate command <args> [flags]`,
-		Short:             "redis 迁移命令",
+		Short:             "数据迁移命令",
 		SilenceErrors:     false,
 		DisableAutoGenTag: false,
 		Example: `
 支持命令:
 [hash, set, sorted-set]
-redis-migrate migrate -h
 `,
 	}
 )

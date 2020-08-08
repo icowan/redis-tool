@@ -1,7 +1,7 @@
 /**
- * @Time: 2020/8/8 16:38
+ * @Time: 2020/8/8 17:29
  * @Author: solacowa@gmail.com
- * @File: set
+ * @File: migrate_list
  * @Software: GoLand
  */
 
@@ -17,13 +17,13 @@ import (
 )
 
 var (
-	migrateRedisSetCmd = &cobra.Command{
-		Use:               `set <args> [flags]`,
-		Short:             "redis set 迁移",
+	migrateRedisListCmd = &cobra.Command{
+		Use:               `list <args> [flags]`,
+		Short:             "列表迁移",
 		SilenceErrors:     false,
 		DisableAutoGenTag: false,
 		Example: `
-redis-tool migrate set {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
+redis-tool migrate list {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// 关闭资源连接
@@ -35,7 +35,7 @@ redis-tool migrate set {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 
 				fmt.Println("至少需要一个参数")
 				return errors.New("参数错误")
 			}
-			return migrateRedisSet(args[0])
+			return migrateRedisList(args[0])
 		},
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if err = prepare(); err != nil {
@@ -47,7 +47,7 @@ redis-tool migrate set {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 
 	}
 )
 
-func migrateRedisSet(key string) error {
+func migrateRedisList(key string) error {
 	begin := time.Now()
 
 	res, err := sourceRedis.Keys(key)
