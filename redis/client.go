@@ -30,6 +30,10 @@ type RedisInterface interface {
 	HDelAll(k string) (err error)
 	HDel(k string, field string) (err error)
 	Keys(pattern string) (res []string, err error)
+	LLen(key string) int64
+	RPop(key string) (res string, err error)
+	LPush(key string, val interface{}) (err error)
+	TypeOf(key string) (res string, err error)
 	Close() error
 	Subscribe(channels ...string) *redis.PubSub
 	Publish(channel string, message interface{}) error

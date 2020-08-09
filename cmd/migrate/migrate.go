@@ -64,7 +64,7 @@ func init() {
 	migrateRedisCmd.PersistentFlags().StringVar(&sourcePrefix, "source-prefix", "", "源redis前缀")
 	migrateRedisCmd.PersistentFlags().StringVar(&targetPrefix, "target-prefix", "", "目标redis前缀")
 
-	migrateRedisCmd.AddCommand(migrateRedisHashCmd, migrateRedisSortedSetCmd, migrateRedisSetCmd)
+	migrateRedisCmd.AddCommand(migrateRedisHashCmd, migrateRedisSortedSetCmd, migrateRedisSetCmd, migrateRedisAllCmd)
 	addFlags(rootCmd)
 	rootCmd.AddCommand(migrateRedisCmd)
 }

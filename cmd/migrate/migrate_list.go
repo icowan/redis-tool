@@ -50,26 +50,20 @@ redis-tool migrate list {key} --source-hosts 127.0.0.1:6379 --source-auth 123456
 func migrateRedisList(key string) error {
 	begin := time.Now()
 
-	res, err := sourceRedis.Keys(key)
-	if err != nil {
-		err = errors.Wrap(err, "sourceRedis.Keys")
-		return err
-	}
+	total := sourceRedis.LLen(key)
 
-	fmt.Println(fmt.Sprintf("Key: [%s] 总数: [%d]", key, len(res)))
+	fmt.Println(fmt.Sprintf("Key: [%s] 总数: [%d]", key, total))
 
-	for _, val := range res {
-		v, err := sourceRedis.Get(val)
-		if err != nil || v == "" {
-			fmt.Println(fmt.Sprintf("迁移: [%s] --> failure: %s", val, "key不存在"))
-			continue
-		}
-
-		if err = targetRedis.Set(val, v, sourceRedis.TTL(val)); err != nil {
-			fmt.Println(fmt.Sprintf("迁移: [%s] --> failure: %s", val, err.Error()))
-			continue
+	for i := 0; i < int(total); i++ {
+		if val, err := sourceRedis.RPop(key); err == nil {
+			if err = targetRedis.LPush(key, val); err != nil {
+				fmt.Println(fmt.Sprintf("迁移: [%s] --> failure: %s", key, err.Error()))
+			}
+		} else {
+			fmt.Println(fmt.Sprintf("迁移: [%s] --> failure: %s", key, err.Error()))
 		}
 	}
+
 	fmt.Println(fmt.Sprintf("迁移完成, 用时 [%v]", time.Since(begin)))
 
 	return nil

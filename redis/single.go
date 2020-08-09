@@ -19,6 +19,22 @@ type single struct {
 	prefix string
 }
 
+func (c *single) LPush(key string, val interface{}) (err error) {
+	return c.client.LPush(key, val).Err()
+}
+
+func (c *single) RPop(key string) (res string, err error) {
+	return c.client.RPop(key).Result()
+}
+
+func (c *single) LLen(key string) int64 {
+	return c.client.LLen(key).Val()
+}
+
+func (c *single) TypeOf(key string) (res string, err error) {
+	return c.client.Type(key).Result()
+}
+
 func (c *single) Keys(pattern string) (res []string, err error) {
 	return c.client.Keys(pattern).Result()
 }

@@ -77,9 +77,6 @@ func migrateRedisHGetAll(key string) error {
 		if err = targetRedis.HSet(key, k, v); err != nil {
 			continue
 		}
-		if i == 100 {
-			fmt.Println(fmt.Sprintf("%d%% [%s]\r", i, getS(i, "#")+getS(100-i, " ")))
-		}
 	}
 
 	fmt.Println(fmt.Sprintf("迁移完成, 用时 [%v]", time.Since(begin)))

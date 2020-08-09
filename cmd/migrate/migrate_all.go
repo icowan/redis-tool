@@ -68,8 +68,33 @@ func migrateRedisAll(key string) error {
 	for _, v := range keys {
 		// 判断类型
 		// 只支持 set, hash, list, sortedSet 其他的跳过
-
-		fmt.Println(v)
+		valType, err := sourceRedis.TypeOf(v)
+		if err != nil {
+			fmt.Println("err", err.Error())
+			continue
+		}
+		switch valType {
+		case "string":
+			if err = migrateRedisSet(v); err != nil {
+				fmt.Println("migrateRedisSet: ", err.Error())
+				continue
+			}
+		case "list":
+			if err = migrateRedisList(v); err != nil {
+				fmt.Println("migrateRedisList: ", err.Error())
+				continue
+			}
+		case "zset":
+			if err = migrateRedisSortedSet(v); err != nil {
+				fmt.Println("migrateRedisSortedSet: ", err.Error())
+				continue
+			}
+		case "hash":
+			if err = migrateRedisHGetAll(v); err != nil {
+				fmt.Println("migrateRedisHGetAll: ", err.Error())
+				continue
+			}
+		}
 	}
 
 	fmt.Println(fmt.Sprintf("迁移完成, 用时 [%v]", time.Since(begin)))

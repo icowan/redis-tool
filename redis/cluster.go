@@ -20,6 +20,22 @@ type cluster struct {
 	prefix string
 }
 
+func (c *cluster) LPush(key string, val interface{}) (err error) {
+	return c.client.LPush(key, val).Err()
+}
+
+func (c *cluster) RPop(key string) (res string, err error) {
+	return c.client.RPop(key).Result()
+}
+
+func (c *cluster) LLen(key string) int64 {
+	return c.client.LLen(key).Val()
+}
+
+func (c *cluster) TypeOf(key string) (res string, err error) {
+	return c.client.Type(key).Result()
+}
+
 func (c *cluster) Keys(pattern string) (res []string, err error) {
 	return c.client.Keys(pattern).Result()
 }
