@@ -31,11 +31,13 @@ Usage:
 Examples:
 
 支持命令:
-[hash, set, sorted-set, all]
+[hash, set, sorted-set, list, all]
+
 
 Available Commands:
   all         迁移所有
   hash        哈希列表迁移
+  list        列表迁移
   set         redis set 迁移
   sorted-set  有序集合迁移
 
@@ -58,13 +60,13 @@ Use "redis-tool migrate [command] --help" for more information about a command.
 ### 编译
 
 ```bash
-make build
+make build-linux
 ```
 
 ### 执行
 
 ```bash
-redis-tool migrate
+redis-tool migrate -h
 ```
 
 #### 迁移hash
@@ -79,4 +81,9 @@ redis-tool migrate hash sys:user --source-hosts=127.0.0.1:6379 --source-auth=123
 
 ```bash
 redis-tool migrate hash sys:user --source-hosts 127.0.0.1:6379,127.0.0.1:7379  --source-redis-cluster true --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
+```
+#### 迁移所有
+
+```bash
+redis-tool migrate all "*" --source-hosts=127.0.0.1:6379 --source-auth=123456 --source-database=1 --target-redis-cluster=true --target-hosts=127.0.0.1:6379,127.0.0.1:7379 --target-auth=123456
 ```
