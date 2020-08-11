@@ -60,7 +60,7 @@ Use "redis-tool migrate [command] --help" for more information about a command.
 ### 编译
 
 ```bash
-make build-linux
+make 
 ```
 
 ### 执行
