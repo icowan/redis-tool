@@ -46,7 +46,7 @@ var (
 		DisableAutoGenTag: false,
 		Example: `
 支持命令:
-[hash, set, sorted-set]
+[hash, set, sorted-set, list]
 `,
 	}
 )
@@ -64,7 +64,7 @@ func init() {
 	migrateRedisCmd.PersistentFlags().StringVar(&sourcePrefix, "source-prefix", "", "源redis前缀")
 	migrateRedisCmd.PersistentFlags().StringVar(&targetPrefix, "target-prefix", "", "目标redis前缀")
 
-	migrateRedisCmd.AddCommand(migrateRedisHashCmd, migrateRedisSortedSetCmd, migrateRedisSetCmd, migrateRedisAllCmd)
+	migrateRedisCmd.AddCommand(migrateRedisHashCmd, migrateRedisSortedSetCmd, migrateRedisSetCmd, migrateRedisAllCmd, migrateRedisListCmd)
 	addFlags(rootCmd)
 	rootCmd.AddCommand(migrateRedisCmd)
 }

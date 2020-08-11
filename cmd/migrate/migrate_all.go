@@ -10,7 +10,6 @@ package migrate
 import (
 	"fmt"
 	"log"
-	"math"
 	"time"
 
 	"github.com/pkg/errors"
@@ -24,7 +23,7 @@ var (
 		SilenceErrors:     false,
 		DisableAutoGenTag: false,
 		Example: `
-redis-tool migrate all {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
+redis-tool migrate all "*" --source-hosts 127.0.0.1:6379 --source-auth 123456 --target-redis-cluster true --target-hosts 127.0.0.1:6379,127.0.0.1:7379 --target-auth 123456
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// 关闭资源连接
@@ -33,7 +32,7 @@ redis-tool migrate all {key} --source-hosts 127.0.0.1:6379 --source-auth 123456 
 				log.Printf("target redis close err: %v", targetRedis.Close())
 			}()
 			var key string
-			if len(args) == 1 {
+			if len(args) >= 1 {
 				key = args[0]
 			}
 			return migrateRedisAll(key)
@@ -59,11 +58,6 @@ func migrateRedisAll(key string) error {
 	var total = len(keys)
 
 	fmt.Println(fmt.Sprintf("Key: [%s] 总数: [%d]", key, total))
-	var base float64 = 50000
-
-	step := math.Ceil(float64(total) / base)
-
-	fmt.Println(step)
 
 	for _, v := range keys {
 		// 判断类型

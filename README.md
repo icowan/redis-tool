@@ -16,8 +16,9 @@
 
 - all         迁移所有
 - hash        哈希列表迁移
-- set         redis set 迁移
+- set         redis string  迁移
 - sorted-set  有序集合迁移
+- list        列表
 
 ## 使用教程
 
@@ -30,8 +31,7 @@ Usage:
 Examples:
 
 支持命令:
-[hash, set, sorted-set]
-
+[hash, set, sorted-set, all]
 
 Available Commands:
   all         迁移所有
